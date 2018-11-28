@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuyetTien;
+using System.Transactions;
 
 namespace QuyetTien.Controllers
 {
@@ -48,17 +49,30 @@ namespace QuyetTien.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="id,MaSP,TenSP,Loai_id,GiaBan,GiaGoc,GiaGop,SoLuongTon")] BangSanPham bangsanpham)
+        public ActionResult Create(BangSanPham model)
         {
+            checkBangSanPham(model);
             if (ModelState.IsValid)
             {
-                db.BangSanPhams.Add(bangsanpham);
+                db.BangSanPhams.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Loai_id = new SelectList(db.LoaiSanPhams, "id", "TenLoai", bangsanpham.Loai_id);
-            return View(bangsanpham);
+            ViewBag.Loai_id = new SelectList(db.LoaiSanPhams, "id", "TenLoai", model.Loai_id);
+            return View(model);
+        }
+
+        private void checkBangSanPham(BangSanPham model)
+        {
+            if (model.GiaGoc <= 0)
+                ModelState.AddModelError("GiaGoc", "Giá gốc phải lớn hơn 0");
+            if (model.GiaBan <= 0)
+                ModelState.AddModelError("GiaBan", "Giá bán phải lớn hơn 0");
+            if (model.GiaGop <= 0)
+                ModelState.AddModelError("GiaGop", "Giá góp phải lớn hơn 0");
+            if (model.SoLuongTon <= 0)
+                ModelState.AddModelError("SoluongTon", "Số lượng tồn phải lớn hơn 0");
         }
 
         // GET: /Create/Edit/5
