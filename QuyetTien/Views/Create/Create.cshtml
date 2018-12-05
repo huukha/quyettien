@@ -73,11 +73,11 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("hinhanh", "Hình ảnh", new { @class = "control-label col-md-2" })
+            @Html.Label("HinhAnh", "Hình ảnh", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBox("hinhanh", null, new { @class = "form-control", @type = "file", accept = "image/gif, image/jpeg, image/png, image/jpg", onchange = "readURL(this)" })
-                @Html.ValidationMessage("hinhanh")
-                <img src="#" id="img-sp" alt="Alternate Text" class="hidden" style="max-width: 280px"/>
+                @Html.TextBox("HinhAnh", null, new { @class = "form-control", @type = "file", accept = "image/gif, image/jpeg, image/png, image/jpg", onchange = "readURL(this)" })
+                @Html.ValidationMessage("HinhAnh")
+                <img src="#" id="img-sp" alt="Alternate Text" class="hidden img-thumbnail" style="max-width: 280px"/>
             </div>
         </div>
 

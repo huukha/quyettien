@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<QuyetTien.BangSanPham>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách sản phẩm";
 }
 
 <h2>Quản lý sản phẩm</h2>
@@ -13,30 +13,15 @@
 <table class="table" id="product-table">
     <thead>
         <tr>
-            <th>
-                Mã sản phẩm
-            </th>
-            <th>
-                Tên sản phẩm
-            </th>
-            <th>
-                Giá bán
-            </th>
-            <th>
-                Giá gốc
-            </th>
-            <th>
-                Giá góp
-            </th>
-            <th>
-                Số lượng tồn
-            </th>
-            <th>
-                Tên loại
-            </th>
-            <th>
-                Tùy chọn
-            </th>
+            <th>Hình ảnh</th>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại</th>
+            <th>Giá bán</th>
+            <th>Giá gốc</th>
+            <th>Giá góp</th>
+            <th>Số lượng tồn</th>
+            <th>Tùy chọn</th>
         </tr>
     </thead>
 
@@ -44,32 +29,35 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MaSP)
+                <img src="@Url.Action("Details", new { id = item.id })" class="img-thumbnail img-rounded" style="max-width: 100px;" alt="chưa có hình" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TenSP)
+                @item.MaSP
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaBan)
+                @item.TenSP
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaGoc)
+                @item.LoaiSanPham.TenLoai
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaGop)
+                @item.GiaBan.ToString("N0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SoLuongTon)
+                @item.GiaGoc.ToString("N0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LoaiSanPham.TenLoai)
+                @item.GiaGop.ToString("N0")
+            </td>
+            <td>
+                @item.SoLuongTon.ToString("N0")
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
                 @Html.ActionLink("Details", "Details", new { id=item.id }) |
                 @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
                 <a href="@Url.Action("Edit", new { id = item.id })" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="@Url.Action("Details", new { id = item.id })" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>
+                @*<a href="@Url.Action("Details", new { id = item.id })" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>*@
                 <a href="@Url.Action("Delete", new { id = item.id })" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
