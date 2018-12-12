@@ -22,5 +22,17 @@ namespace QuyetTien.Tests.Controllers
             Assert.IsInstanceOfType(result.Model, typeof(List<BangSanPham>));
             Assert.AreEqual(db.BangSanPhams.Count(), ((List<BangSanPham>)result.Model).Count);
         }
+
+        [TestMethod]
+        public void TestCreate()
+        {
+            var controller = new CreateController();
+            var result = controller.Create() as ViewResult;
+            var db = new CS4PEEntities();
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.ViewData["Loai_id"]);
+            Assert.IsInstanceOfType(result.ViewData["Loai_id"], typeof(SelectList));
+        }
     }
 }
